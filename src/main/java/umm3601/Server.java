@@ -3,6 +3,7 @@ package umm3601;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import umm3601.ToDos.todoController;
 import umm3601.user.UserController;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ public class Server {
         staticFiles.location("/public");
         Gson gson = new Gson();
         UserController userController = new UserController();
+        todoController todoController = new todoController();
 
         // Simple example route
         get("/hello", (req, res) -> "Hello World");
@@ -28,6 +30,9 @@ public class Server {
         // Redirect for the Users Form
         redirect.get("/users", "/users.html");
 
+        //Redirects users when they access the kitten page
+        redirect.get("/kittens", "/kittens.html");
+
         // List users
         get("api/users", (req, res) -> {
             res.type("application/json");
@@ -40,6 +45,18 @@ public class Server {
             String id = req.params("id");
             return gson.toJson(userController.getUser(id));
         });
+
+        get("api/todos" , (req, res) -> {
+            res.type("application/json");
+            return wrapInJson("todos", gson.toJsonTree(todoController.listTodo(req.queryMap().toMap())));
+        });
+
+        get("api/todos/:id", (req,res) -> {
+            res.type("application/json");
+            String id = req.params("id");
+            return gson.toJson(todoController.getID(id));
+        });
+
     }
 
     public static JsonObject wrapInJson(String name, JsonElement jsonElement) {
