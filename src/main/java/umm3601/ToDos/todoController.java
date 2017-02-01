@@ -22,46 +22,56 @@ public class todoController {
 
     public todo[] listTodo(Map<String, String[]> queryParams){
         todo[] todoTemp = todos;
+        int size = queryParams.size();
 
-        if(queryParams.containsKey("limit")) {
-            int limit = Integer.parseInt(queryParams.get("limit")[0]);
-            todoTemp =  limit(todos, limit);
-        }
+        while(queryParams.size() > 0){
 
-        if(queryParams.containsKey("status")) {
-            String status = queryParams.get("status")[0];
+            if(queryParams.containsKey("status")) {
+                String status = queryParams.get("status")[0];
+                queryParams.remove("status");
 
-            if(status.equals("complete")){
-                todoTemp = findComplete(todos, true);
-            }else{
-                todoTemp = findComplete(todos, false);
+                if(status.equals("complete")){
+                    todoTemp = findComplete(todoTemp, true);
+                }else{
+                    todoTemp = findComplete(todoTemp, false);
+                }
             }
+
+            if(queryParams.containsKey("contains")){
+                String body = queryParams.get("contains")[0];
+                queryParams.remove("contains");
+
+                todoTemp = bodySearch(todoTemp, body);
+            }
+
+            if(queryParams.containsKey("owner")){
+                String owner = queryParams.get("owner")[0];
+                queryParams.remove("owner");
+
+                todoTemp = searchOwner(todoTemp, owner);
+            }
+
+            if(queryParams.containsKey("category")){
+                String category = queryParams.get("category")[0];
+                queryParams.remove("category");
+
+                todoTemp = searchCategory(todoTemp, category);
+            }
+
+            if(queryParams.containsKey("orderBy")){
+                String parameter = queryParams.get("orderBy")[0];
+                queryParams.remove("orderBy");
+
+                todoTemp = order(todoTemp, parameter);
+            }
+
+            if(queryParams.containsKey("limit")) {
+                int limit = Integer.parseInt(queryParams.get("limit")[0]);
+                queryParams.remove("limit");
+                todoTemp =  limit(todoTemp, limit);
+            }
+
         }
-
-        if(queryParams.containsKey("contains")){
-            String body = queryParams.get("contains")[0];
-
-            todoTemp = bodySearch(todos, body);
-        }
-
-        if(queryParams.containsKey("owner")){
-            String owner = queryParams.get("owner")[0];
-
-            todoTemp = searchOwner(todos, owner);
-        }
-
-        if(queryParams.containsKey("category")){
-            String category = queryParams.get("category")[0];
-
-            todoTemp = searchCategory(todos, category);
-        }
-
-        if(queryParams.containsKey("orderBy")){
-            String parameter = queryParams.get("orderBy")[0];
-
-            todoTemp = order(todos, parameter);
-        }
-
 
         return todoTemp;
     }
@@ -83,13 +93,13 @@ public class todoController {
     private todo[] findComplete(todo[] input, boolean complete){
         ArrayList<todo> result = new ArrayList<todo>();
         if(complete){
-            for(todo x: todos){
+            for(todo x: input){
                 if(x.status){
                     result.add(x);
                 }
             }
         }else{
-            for(todo x: todos){
+            for(todo x: input){
                 if(x.status == false){
                     result.add(x);
                 }
@@ -105,7 +115,7 @@ public class todoController {
 
     private todo[] bodySearch(todo[] input, String searchParam){
         ArrayList<todo> holder = new ArrayList<>();
-        for(todo x: todos){
+        for(todo x: input){
             if(x.body.contains(searchParam)){
                 holder.add(x);
             }
@@ -121,7 +131,7 @@ public class todoController {
 
     private todo[] searchOwner(todo[] input, String name){
         ArrayList<todo> holder = new ArrayList<>();
-        for(todo x: todos){
+        for(todo x: input){
             if(x.owner.contains(name)){
                 holder.add(x);
             }
@@ -137,7 +147,7 @@ public class todoController {
 
     private todo[] searchCategory(todo[] input, String category){
         ArrayList<todo> holder = new ArrayList<>();
-        for(todo x: todos){
+        for(todo x: input){
             if(x.category.contains(category)){
                 holder.add(x);
             }
