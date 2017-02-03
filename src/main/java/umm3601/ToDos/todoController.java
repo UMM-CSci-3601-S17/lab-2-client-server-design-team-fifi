@@ -77,7 +77,7 @@ public class todoController {
         return Arrays.stream(todos).filter(x -> x._id.equals(id)).findFirst().orElse(null);
     }
 
-    private todo[] limit(todo[] input, int lim) {
+    public todo[] limit(todo[] input, int lim) {
         todo[] result = new todo[lim];
 
         for (int i = 0; i < lim; i++) {
@@ -87,7 +87,7 @@ public class todoController {
         return result;
     }
 
-    private todo[] findComplete(todo[] input, boolean complete) {
+    public todo[] findComplete(todo[] input, boolean complete) {
         ArrayList<todo> result = new ArrayList<todo>();
         if (complete) {
             for (todo x : input) {
@@ -110,7 +110,7 @@ public class todoController {
         return actualResult;
     }
 
-    private todo[] bodySearch(todo[] input, String searchParam) {
+    public todo[] bodySearch(todo[] input, String searchParam) {
         ArrayList<todo> holder = new ArrayList<>();
         for (todo x : input) {
             if (x.body.contains(searchParam)) {
@@ -126,7 +126,7 @@ public class todoController {
 
     }
 
-    private todo[] searchOwner(todo[] input, String name) {
+    public todo[] searchOwner(todo[] input, String name) {
         ArrayList<todo> holder = new ArrayList<>();
         for (todo x : input) {
             if (x.owner.contains(name)) {
@@ -142,7 +142,7 @@ public class todoController {
 
     }
 
-    private todo[] searchCategory(todo[] input, String category) {
+    public todo[] searchCategory(todo[] input, String category) {
         ArrayList<todo> holder = new ArrayList<>();
         for (todo x : input) {
             if (x.category.contains(category)) {
@@ -158,7 +158,7 @@ public class todoController {
 
     }
 
-    private todo[] order(todo[] input, String param) {
+    public todo[] order(todo[] input, String param) {
         todo[] result = new todo[input.length];
 
         ArrayList<todo> holder = new ArrayList<>();
@@ -229,7 +229,7 @@ public class todoController {
         return result;
     }
 
-    private String[] getNames(todo[] input) {
+    public String[] getNames(todo[] input) {
         String[] names = new String[input.length];
         for (int i = 0; i < input.length; i++) {
             names[i] = input[i].owner;
@@ -240,7 +240,7 @@ public class todoController {
         return names;
     }
 
-    private String[] getBody(todo[] input) {
+    public String[] getBody(todo[] input) {
         String[] comm = new String[input.length];
         for (int i = 0; i < input.length; i++) {
             comm[i] = input[i].body;
@@ -251,7 +251,7 @@ public class todoController {
         return comm;
     }
 
-    private String[] getCategory(todo[] input) {
+    public String[] getCategory(todo[] input) {
         String[] categ = new String[input.length];
         for (int i = 0; i < input.length; i++) {
             categ[i] = input[i].category;
@@ -262,7 +262,7 @@ public class todoController {
         return categ;
     }
 
-    private todo[] getStatus(todo[] input) {
+    public todo[] getStatus(todo[] input) {
         todo[] result = new todo[input.length];
         ArrayList<todo> holder = new ArrayList<>();
 
