@@ -33,6 +33,8 @@ public class Server {
         //Redirects users when they access the kitten page
         redirect.get("/kittens", "/kittens.html");
 
+        redirect.get("/todo","todo.html");
+
         // List users
         get("api/users", (req, res) -> {
             res.type("application/json");

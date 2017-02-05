@@ -27,7 +27,6 @@ public class todoController {
 
         if (queryParams.containsKey("status")) {
             String status = queryParams.get("status")[0];
-            queryParams.remove("status");
 
             if (status.equals("complete")) {
                 todoTemp = findComplete(todoTemp, true);
@@ -38,35 +37,30 @@ public class todoController {
 
         if (queryParams.containsKey("contains")) {
             String body = queryParams.get("contains")[0];
-            queryParams.remove("contains");
 
             todoTemp = bodySearch(todoTemp, body);
         }
 
         if (queryParams.containsKey("owner")) {
             String owner = queryParams.get("owner")[0];
-            queryParams.remove("owner");
 
             todoTemp = searchOwner(todoTemp, owner);
         }
 
         if (queryParams.containsKey("category")) {
             String category = queryParams.get("category")[0];
-            queryParams.remove("category");
 
             todoTemp = searchCategory(todoTemp, category);
         }
 
         if (queryParams.containsKey("orderBy")) {
             String parameter = queryParams.get("orderBy")[0];
-            queryParams.remove("orderBy");
 
             todoTemp = order(todoTemp, parameter);
         }
 
         if (queryParams.containsKey("limit")) {
             int limit = Integer.parseInt(queryParams.get("limit")[0]);
-            queryParams.remove("limit");
             todoTemp = limit(todoTemp, limit);
         }
 
@@ -159,7 +153,7 @@ public class todoController {
     }
 
     public todo[] order(todo[] input, String param) {
-        todo[] result = new todo[input.length];
+        todo[] result = input;
 
         ArrayList<todo> holder = new ArrayList<>();
 
@@ -221,7 +215,7 @@ public class todoController {
 
             }
 
-        } else {
+        } else if(param.equals("status")){
             result = getStatus(input);
 
         }
