@@ -31,26 +31,31 @@ var getTodoByParameters = function() {
     var category = document.getElementById('cat').value;
     var limit = document.getElementById('lim').value;
     var orderParam = document.getElementById('order').value;
-    var url;
-
-    if(id){
-        url = "/api/todos/" + id;
-    }else{
-        url = "/api/todos?owner=" + owner + "&contains=" + contains + "&category=" + category + "&orderBy=" + orderParam;
-    }
-
-    if(status != ""){
-        url += "&status=" + status;
-    }
-
-    if(limit != ""){
-        url += "&limit=" + limit;
-    }
+    var url = urlBuilder(id, owner, status, contains, category, limit, orderParam);
 
     var HttpThingy = new HttpClient();
     HttpThingy.get(url , function(returned_json){
         document.getElementById('jsonDump1').innerHTML = returned_json;
     });
+}
+
+var urlBuilder = function(id, owner, status, contains, category, limit, order){
+    var url;
+    if(id){
+        url = "/api/todos/" + id;
+    }else{
+        url = "/api/todos?owner=" + owner + "&contains=" + contains + "&category=" + category + "&orderBy=" + order;
+    }
+
+    if(status != "" && !id){
+        url += "&status=" + status;
+    }
+
+    if(limit != "" && !id){
+        url += "&limit=" + limit;
+    }
+
+    return url;
 }
 
 
