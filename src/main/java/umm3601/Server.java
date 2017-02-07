@@ -33,6 +33,7 @@ public class Server {
         //Redirects users when they access the kitten page
         redirect.get("/kittens", "/kittens.html");
 
+        //Redirects users when they access the todo page
         redirect.get("/todo","todo.html");
 
         // List users
@@ -48,11 +49,13 @@ public class Server {
             return gson.toJson(userController.getUser(id));
         });
 
+        //List todos
         get("api/todos" , (req, res) -> {
             res.type("application/json");
             return wrapInJson("todos", gson.toJsonTree(todoController.listTodo(req.queryMap().toMap())));
         });
 
+        //See a specified todo
         get("api/todos/:id", (req,res) -> {
             res.type("application/json");
             String id = req.params("id");

@@ -1,6 +1,6 @@
 What is the purpose of .gitignore? <br>
 Files in the .gitignore file are untracked intentionally. 
-My group thinks that things in this file are files that should stay the same throughtout the developement process
+My group thinks that things in this file are files that should stay the same throughout the development process
 
 Explain what a route is? 
 A route is made up three pieces: a verb, a path, and a callback. Routes are the building blocks of spark.
@@ -33,10 +33,10 @@ age in the client? What is read from the web page, and what
 request is sent to the server? What is received, and how/where
 is it displayed?
 
-When users are filtered by age the users that are that age are displayed. The read from the webpage is that the user classes
+When users are filtered by age the users that are that age are displayed. The read from the web page is that the user classes
 are displayed filtered by age. The request is a map odf size 1 with the key being the string age and the value is a string array of length 1 
-with a string inside that is a number. We receive an array of users and it is displayed in another webpage being filtered by 
+with a string inside that is a number. We receive an array of users and it is displayed in another web page being filtered by 
 specific age. 
 
 question: Where is the client-side JavaScript defined? Name the file(s) in which it is used.
-The client side jvascript is in the javascript folder within the public folder named users.js and used in users.html.
+The client side javascript is in the javascript folder within the public folder named users.js and used in users.html.

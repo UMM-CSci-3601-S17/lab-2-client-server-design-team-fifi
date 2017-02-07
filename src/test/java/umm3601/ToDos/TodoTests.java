@@ -14,12 +14,12 @@ import static org.junit.Assert.assertTrue;
  */
 public class TodoTests {
     @Test
-    public void filtetTodoByStatus() throws IOException {
+    public void filterTodoByStatus() throws IOException {
         todoController todosController = new todoController();
         todo[] allTodos = todosController.listTodo(new HashMap<>());
         todo[] completeStatus = todosController.findComplete(allTodos, true);// Gets all todos with the status that are true
         assertEquals("Incorrect status should be true", true ,completeStatus[0].status);//check that any todo elements in the complete status array should have true as its status
-        assertTrue("Incorrect status, status should be complete", completeStatus[7].status);//checks the 7th elements in the arraye of true statuses
+        assertTrue("Incorrect status, status should be complete", completeStatus[7].status);//checks the 7th elements in the array of true statuses
         todo[] incompleteStatus = todosController.findComplete(allTodos, false);//Gets all todos with false status
         assertEquals("Incorrect status should be false", false ,incompleteStatus[0].status);//check that any todo element in the incomplete status array should return false
         assertFalse("Incorrect status, status should be incomplete ", incompleteStatus[28].status );//checks 28th element in array to make sure its false
@@ -42,8 +42,10 @@ public class TodoTests {
         todoController todosController = new todoController();
         todo[] allTodos = todosController.listTodo(new HashMap<>());
         todo[] todoBodySearch = todosController.bodySearch(allTodos, "reprehenderit");
+        //checks the first case of a body with reprehenderit
         assertEquals("Incorrect body should contain reprehenderit ", "Aliqua esse aliqua veniam id nisi ea. Ullamco Lorem ex aliqua aliquip cupidatat incididunt reprehenderit voluptate ad nisi elit dolore laboris.", todoBodySearch[0].body);
         todo[] todoBodySearch1 = todosController.bodySearch(allTodos, "laborum");
+        //checks the first case of a body with laborum
         assertEquals("Incorrect body should contain laborum", "Ipsum esse est ullamco magna tempor anim laborum non officia deserunt veniam commodo. Aute minim incididunt ex commodo.", todoBodySearch1[0].body);
     }
 
@@ -53,11 +55,11 @@ public class TodoTests {
         todoController todosController = new todoController();
         todo[] allTodos = todosController.listTodo(new HashMap<>());
         todo[] todoDesignCategory = todosController.searchCategory(allTodos, "software design");
-        //For loop that will check each element of the todoOwnerBlanche array and checks that the owner is Blanche
+        //For loop that will check each element of the todoDesignCategory array and checks that the category is software design
         for (int i = 0; i < todoDesignCategory.length; i++){
             assertEquals("Incorrect category should be software design", "software design", todoDesignCategory[i].category);
         }
-        //For loop that will check each element of the todoOwnerBlanche array and checks that the owner is Workman
+        //For loop that will check each element of the todoHomeworkCategory array and checks that the category is homework
         todo[] todoHomeworkCategory = todosController.searchOwner(allTodos, "homework");
         for (int i = 0; i < todoHomeworkCategory.length; i++) {
             assertEquals("Incorrect category should be homework", "homework", todoDesignCategory[i].category);

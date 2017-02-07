@@ -21,6 +21,7 @@ public class todoController {
         todos = gson.fromJson(reader, todo[].class);
     }
 
+    //method to list all todos with various filters
     public todo[] listTodo(Map<String, String[]> queryParams) {
         todo[] todoTemp = todos;
         int size = queryParams.size();
@@ -67,6 +68,7 @@ public class todoController {
         return todoTemp;
     }
 
+    //method to get id of a specified todo
     public todo getID(String id) {
         return Arrays.stream(todos).filter(x -> x._id.equals(id)).findFirst().orElse(null);
     }
@@ -81,6 +83,7 @@ public class todoController {
         return result;
     }
 
+    //method to find the status of todo
     public todo[] findComplete(todo[] input, boolean complete) {
         ArrayList<todo> result = new ArrayList<todo>();
         if (complete) {
@@ -104,6 +107,7 @@ public class todoController {
         return actualResult;
     }
 
+    //method to find if a body of a todo contains a specified word
     public todo[] bodySearch(todo[] input, String searchParam) {
         ArrayList<todo> holder = new ArrayList<>();
         for (todo x : input) {
@@ -120,6 +124,7 @@ public class todoController {
 
     }
 
+    //method to find the owner of a todo
     public todo[] searchOwner(todo[] input, String name) {
         ArrayList<todo> holder = new ArrayList<>();
         for (todo x : input) {
@@ -136,6 +141,7 @@ public class todoController {
 
     }
 
+    //method that finds a certain category of a todo
     public todo[] searchCategory(todo[] input, String category) {
         ArrayList<todo> holder = new ArrayList<>();
         for (todo x : input) {
@@ -152,6 +158,7 @@ public class todoController {
 
     }
 
+    //method that will put the todos in order based specified parameter
     public todo[] order(todo[] input, String param) {
         todo[] result = input;
 
@@ -223,6 +230,7 @@ public class todoController {
         return result;
     }
 
+    //helper function that gets the names of a todo and sorts them
     public String[] getNames(todo[] input) {
         String[] names = new String[input.length];
         for (int i = 0; i < input.length; i++) {
@@ -234,6 +242,7 @@ public class todoController {
         return names;
     }
 
+    //helper function that gets the body of a todo and sorts them
     public String[] getBody(todo[] input) {
         String[] comm = new String[input.length];
         for (int i = 0; i < input.length; i++) {
@@ -245,6 +254,7 @@ public class todoController {
         return comm;
     }
 
+    //helper function that gets the category of a todo and sorts them
     public String[] getCategory(todo[] input) {
         String[] categ = new String[input.length];
         for (int i = 0; i < input.length; i++) {
@@ -256,6 +266,7 @@ public class todoController {
         return categ;
     }
 
+    //helper function that gets the status of a todo and sorts them
     public todo[] getStatus(todo[] input) {
         todo[] result = new todo[input.length];
         ArrayList<todo> holder = new ArrayList<>();

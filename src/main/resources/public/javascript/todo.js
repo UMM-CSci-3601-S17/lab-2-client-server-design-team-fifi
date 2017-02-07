@@ -1,6 +1,8 @@
 /**
  * Created by blask017 on 2/2/17.
  */
+
+
 window.onload = function() {
     console.log("The page is loaded now!");
 
@@ -14,7 +16,7 @@ window.onload = function() {
 
 
 /**
- * Function to get all the users!
+ * Function to get all the todos!
  */
 var getAllTodos = function() {
     var HttpThingy = new HttpClient();
@@ -23,6 +25,10 @@ var getAllTodos = function() {
     });
 }
 
+
+/**
+    * Function that gets todos by a specified parameter !
+*/
 var getTodoByParameters = function() {
     var owner = document.getElementById('own').value;
     var id = document.getElementById('ID').value;
@@ -39,6 +45,10 @@ var getTodoByParameters = function() {
     });
 }
 
+
+/**
+ * Function to build the todo url based on specified parameter by the user
+ */
 var urlBuilder = function(id, owner, status, contains, category, limit, order){
     var url;
     if(id){
